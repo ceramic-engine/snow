@@ -22,6 +22,8 @@ class Runtime extends snow.core.native.Runtime {
     public var window : sdl.Window;
         /** Toggle auto window swap */
     public var auto_swap : Bool = true;
+        /** Current SDL event being handled */
+    public var current_ev : sdl.Event = null;
         /** internal: map of gamepad index to gamepad instance */
     var gamepads : Map<Int, sdl.GameController>;
         /** internal: map of joystick index to joystick instance */
@@ -202,12 +204,16 @@ class Runtime extends snow.core.native.Runtime {
 
             var e = SDL.pollEvent();
 
+            current_ev = e;
+
             handle_input_ev(e);
             handle_window_ev(e);
 
             if(e.type == SDL_QUIT) {
                 app.dispatch_event(se_quit);
             }
+
+            current_ev = null;
 
         } //SDL has event
 
