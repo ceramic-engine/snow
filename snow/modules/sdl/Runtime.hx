@@ -35,7 +35,9 @@ class Runtime extends snow.core.native.Runtime {
         timestamp_start = Timestamp.now();
         name = 'sdl';
 
-        app.config.runtime = {}
+        app.config.runtime = {
+            uncaught_error_handler: null
+        };
 
         gamepads = new Map();
         joysticks = new Map();
@@ -200,27 +202,42 @@ class Runtime extends snow.core.native.Runtime {
 
     function loop(_) {
 
-        while(SDL.hasAnEvent()) {
+        inline function _loop() {
 
-            var e = SDL.pollEvent();
+            while(SDL.hasAnEvent()) {
 
-            current_ev = e;
+                var e = SDL.pollEvent();
 
-            handle_input_ev(e);
-            handle_window_ev(e);
+                current_ev = e;
 
-            if(e.type == SDL_QUIT) {
-                app.dispatch_event(se_quit);
+                handle_input_ev(e);
+                handle_window_ev(e);
+
+                if(e.type == SDL_QUIT) {
+                    app.dispatch_event(se_quit);
+                }
+
+                current_ev = null;
+
+            } //SDL has event
+
+            app.dispatch_event(se_tick);
+
+            if(auto_swap && !app.has_shutdown) {
+                window_swap();
             }
 
-            current_ev = null;
-
-        } //SDL has event
-
-        app.dispatch_event(se_tick);
-
-        if(auto_swap && !app.has_shutdown) {
-            window_swap();
+        } //loop
+            
+        if (app.config.runtime.uncaught_error_handler != null) {
+            try {
+                _loop();
+            } catch (e:Dynamic) {
+                app.config.runtime.uncaught_error_handler(e);
+            }
+        }
+        else {
+            _loop();
         }
 
     } //loop
@@ -814,7 +831,8 @@ class Runtime extends snow.core.native.Runtime {
 typedef WindowHandle = sdl.Window;
 
 typedef RuntimeConfig = {
-    
-    //:todo: potential sdl runtime config
+
+        /** Custom uncaught error handler */
+    public var uncaught_error_handler : Dynamic->Void;
 
 } //RuntimeConfig
