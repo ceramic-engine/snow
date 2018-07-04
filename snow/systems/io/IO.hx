@@ -23,7 +23,7 @@ class IO {
     function new( _app:snow.Snow ) {
 
         app = _app;
-        module = new ModuleIO(app);
+        module = @:privateAccess new ModuleIO(app);
 
     } //new
 
