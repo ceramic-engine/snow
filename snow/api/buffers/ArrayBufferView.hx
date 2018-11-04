@@ -80,9 +80,9 @@ package snow.api.buffers;
 
         @:allow(snow.api.buffers)
         #if !snow_no_inline_buffers inline #end
-        static function fromBuffer(_type:TypedArrayType, _buffer:ArrayBuffer, _byte_offset:Int, _byte_length:Int) : ArrayBufferView {
+        static function fromBuffer(_type:TypedArrayType, _buffer:ArrayBuffer, _byte_offset:Int, _byte_length:Int, ?_view:ArrayBufferView) : ArrayBufferView {
 
-            var _view = new ArrayBufferView(_type);
+            if (_view == null) _view = new ArrayBufferView(_type);
             var _bytes_per_elem = _view.bytesPerElement;
 
             if(_byte_offset < 0) throw TAError.RangeError('fromBuffer: byte offset must be positive (> 0)');
