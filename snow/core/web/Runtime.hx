@@ -143,6 +143,8 @@ class Runtime implements snow.core.Runtime {
     public function window_fullscreen(enable:Bool, ?true_fullscreen:Bool=false) : Bool {
 
         var _result = true;
+        var dynWindow:Dynamic = window;
+        var dynDocument:Dynamic = js.Browser.document;
 
         if(enable) {
 
@@ -171,14 +173,14 @@ class Runtime implements snow.core.Runtime {
             js.Browser.document.body.style.overflow = 'hidden';
 
             if(true_fullscreen) {
-                if(window.requestFullscreen != null) {
-                    window.requestFullscreen();
-                } else if(untyped window.requestFullScreen != null) {
-                    untyped window.requestFullScreen(null);
-                } else if(untyped window.webkitRequestFullscreen != null) {
-                    untyped window.webkitRequestFullscreen();
-                } else if(untyped window.mozRequestFullScreen != null) {
-                    untyped window.mozRequestFullScreen();
+                if(dynWindow.requestFullscreen != null) {
+                    dynWindow.requestFullscreen();
+                } else if(untyped dynWindow.requestFullScreen != null) {
+                    untyped dynWindow.requestFullScreen(null);
+                } else if(untyped dynWindow.webkitRequestFullscreen != null) {
+                    untyped dynWindow.webkitRequestFullscreen();
+                } else if(untyped dynWindow.mozRequestFullScreen != null) {
+                    untyped dynWindow.mozRequestFullScreen();
                 } else {
                     _result = false;
                 }
@@ -201,12 +203,12 @@ class Runtime implements snow.core.Runtime {
             js.Browser.document.body.style.overflow = p_body_overflow;
 
             if(true_fullscreen) {
-                if(js.Browser.document.exitFullscreen != null) {
-                    js.Browser.document.exitFullscreen();
-                } else if(untyped js.Browser.document.webkitExitFullscreen != null) {
-                    untyped js.Browser.document.webkitExitFullscreen();
-                } else if(untyped js.Browser.document.mozCancelFullScreen != null) {
-                    untyped js.Browser.document.mozCancelFullScreen();
+                if(dynDocument.exitFullscreen != null) {
+                    dynDocument.exitFullscreen();
+                } else if(untyped dynDocument.webkitExitFullscreen != null) {
+                    untyped dynDocument.webkitExitFullscreen();
+                } else if(untyped dynDocument.mozCancelFullScreen != null) {
+                    untyped dynDocument.mozCancelFullScreen();
                 } else {
                     _result = false;
                 }
@@ -640,7 +642,7 @@ class Runtime implements snow.core.Runtime {
     function create_render_context(_window:WindowHandle) : Bool {
 
         var config = app.config.render;
-        var attr : js.html.webgl.ContextAttributes = config.webgl;
+        var attr : js.html.webgl.ContextAttributes = cast config.webgl;
 
         attr = apply_GL_attr(config, attr);
 

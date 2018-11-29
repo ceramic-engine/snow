@@ -25,7 +25,7 @@ class GL {
 
 
 
-    public static var version(get_version, null) : Int;
+    public static var version(get, null) : Int;
     public static var gl : RenderingContext;
 
 //non-spec
