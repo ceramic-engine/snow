@@ -240,7 +240,7 @@ class Main extends snow.App {
         #if snow_native
             if(keycode == Key.key_v) {
                 vsync = !vsync;
-                sdl.SDL.GL_SetSwapInterval(vsync);
+                sdl.SDL.GL_SetSwapInterval(vsync ? 1 : 0);
                 log('vsync enabled : $vsync');
             }
         #end
