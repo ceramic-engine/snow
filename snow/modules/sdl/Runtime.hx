@@ -24,6 +24,8 @@ class Runtime extends snow.core.native.Runtime {
     public var auto_swap : Bool = true;
         /** Current SDL event being handled */
     public var current_ev : sdl.Event = null;
+        /** Whether the window was hidden at startup */
+    public var window_hidden_at_startup : Bool = false;
         /** internal: map of gamepad index to gamepad instance */
     var gamepads : Map<Int, sdl.GameController>;
         /** internal: map of joystick index to joystick instance */
@@ -487,6 +489,11 @@ class Runtime extends snow.core.native.Runtime {
 
         flags |= SDL_WINDOW_OPENGL;
         flags |= SDL_WINDOW_ALLOW_HIGHDPI;
+
+        #if mac
+        window_hidden_at_startup = true;
+        flags |= SDL_WINDOW_HIDDEN;
+        #end
 
         if(config.resizable)  flags |= SDL_WINDOW_RESIZABLE;
         if(config.borderless) flags |= SDL_WINDOW_BORDERLESS;
