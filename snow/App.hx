@@ -166,7 +166,9 @@ class App {
                 return;
             }
 
-            next_tick = app.time + update_rate;
+            while (next_tick <= app.time) {
+                next_tick += update_rate;
+            }
 
         }
 
