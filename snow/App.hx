@@ -152,7 +152,14 @@ class App {
         ontickend();
 
         #if (snow_native && !snow_native_no_tick_sleep)
+            #if mac
+            // Prevent the app from using 100% CPU for nothing because vsync
+            // Doesn't work properly on mojave
+            // TODO fix the actual vsync issue
+            Sys.sleep(0.001);
+            #else
             Sys.sleep(0);
+            #end
         #end
 
     } //internal_tick
