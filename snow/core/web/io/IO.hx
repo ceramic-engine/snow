@@ -7,9 +7,15 @@ import snow.api.buffers.Uint8Array;
 import snow.api.Promise;
 import snow.api.Debug.*;
 
+using StringTools;
 
 @:allow(snow.systems.io.IO)
 class IO implements snow.modules.interfaces.IO {
+
+    #if snow_web_use_electron_fs
+    var tested_electron_availability:Bool = false;
+    var electron:Dynamic = null;
+    #end
 
     var app: snow.Snow;
     function new(_app:snow.Snow) app = _app;
@@ -44,39 +50,84 @@ class IO implements snow.modules.interfaces.IO {
 
         return new Promise(function(resolve,reject) {
 
-                //defaults
-            var _async = true;
-            var _binary = true;
+            #if snow_web_use_electron_fs
 
-            if(_options != null) {
-                if(_options.binary != null) _binary = _options.binary;
+            if (!tested_electron_availability) {
+                tested_electron_availability = true;
+                try {
+                    electron = untyped __js__("require('electron')");
+                }
+                catch (e:Dynamic) {}
             }
 
-            var request = new js.html.XMLHttpRequest();
-                request.open("GET", _path, _async);
+            if (electron != null && !_path.startsWith('http://') && !_path.startsWith('https://')) {
 
-            if(_binary) {
-                request.overrideMimeType('text/plain; charset=x-user-defined');
-            } else {
-                request.overrideMimeType('text/plain; charset=UTF-8');
-            }
+                var fs = untyped __js__("{0}.remote.require('fs')", electron);
+                var cwd = untyped __js__("{0}.remote.process.cwd()", electron);
 
-                //only _async can set this type
-            if(_async) {
-                request.responseType = js.html.XMLHttpRequestResponseType.ARRAYBUFFER;
-            }
+                var _binary = true;
 
-            request.onload = function(data) {
-
-                if(request.status == 200) {
-                    resolve( new Uint8Array(request.response) );
-                } else {
-                    reject(Error.error('request status was ${request.status} / ${request.statusText}'));
+                if(_options != null) {
+                    if(_options.binary != null) _binary = _options.binary;
                 }
 
-            } //onload
+                try {
+                    var result = fs.readFileSync(_path);
 
-            request.send();
+                    // Copy data and get rid of nodejs buffer
+                    var data = new Uint8Array(result.length);
+                    for (i in 0...result.length) {
+                        data[i] = untyped __js__("{0}[{1}]", result, i);
+                    }
+
+                    resolve( data );
+                }
+                catch (e:Dynamic) {
+                    reject(Error.error('failed to read file at path $_path: ' + e));
+                }
+
+            }
+            else {
+
+            #end
+
+                    //defaults
+                var _async = true;
+                var _binary = true;
+
+                if(_options != null) {
+                    if(_options.binary != null) _binary = _options.binary;
+                }
+
+                var request = new js.html.XMLHttpRequest();
+                    request.open("GET", _path, _async);
+
+                if(_binary) {
+                    request.overrideMimeType('text/plain; charset=x-user-defined');
+                } else {
+                    request.overrideMimeType('text/plain; charset=UTF-8');
+                }
+
+                    //only _async can set this type
+                if(_async) {
+                    request.responseType = js.html.XMLHttpRequestResponseType.ARRAYBUFFER;
+                }
+
+                request.onload = function(data) {
+
+                    if(request.status == 200) {
+                        resolve( new Uint8Array(request.response) );
+                    } else {
+                        reject(Error.error('request status was ${request.status} / ${request.statusText}'));
+                    }
+
+                } //onload
+
+                request.send();
+
+            #if snow_web_use_electron_fs
+            }
+            #end
 
         });
 
