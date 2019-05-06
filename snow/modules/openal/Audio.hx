@@ -437,9 +437,16 @@ class Audio implements snow.modules.interfaces.Audio {
     inline function err(reason:String) {
         var _err = AL.getError();
         if(_err != AL.NO_ERROR) {
-            var _s = '$_err / $reason: failed with ' + ALError.desc(_err);
-            trace(_s);
-            throw _s;
+            if (_err != -1) {
+                var _s = '$_err / $reason: failed with ' + ALError.desc(_err);
+                trace(_s);
+                throw _s;
+            }
+            else {
+                var _s = '$reason / not played, too many concurrent sounds?';
+                trace(_s);
+                _debug(_s);
+            }
         } else {
             _debug('$reason / no error');
         }
