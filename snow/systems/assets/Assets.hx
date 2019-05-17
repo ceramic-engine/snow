@@ -49,7 +49,7 @@ class Assets {
 
         /** Get the asset path for an asset, adjusted by platform, root etc. */
     public inline function path(_id:String) : String
-        return haxe.io.Path.join([root,_id]);
+        return haxe.io.Path.isAbsolute(_id) ? _id : haxe.io.Path.join([root,_id]);
 
         /** Get an asset as an `AssetBytes`, data stored as `Uint8Array`, using the default processor and provider */
     public inline function bytes(_id:String) : Promise
