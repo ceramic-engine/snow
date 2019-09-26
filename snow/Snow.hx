@@ -385,6 +385,9 @@ class Snow {
                 //for the default config, we only reject if there is a json parse error
             return new Promise(function(resolve, reject) {
 
+                #if snow_no_user_config
+                resolve(null);
+                #else
                 var load = io.data_flow(assets.path(snow.types.Config.app_config), AssetJSON.processor);
 
                     load.then(resolve).error(function(error:Error) {
@@ -396,6 +399,7 @@ class Snow {
                                 resolve(null);
                         }
                     });
+                #end
 
             }); //promise
 
