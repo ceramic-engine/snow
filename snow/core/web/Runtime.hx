@@ -651,7 +651,10 @@ class Runtime implements snow.core.Runtime {
         if(config.webgl.version != 1) {
             _gl = window.getContext('webgl${config.webgl.version}');
             if(_gl == null) _gl = window.getContext('experimental-webgl${config.webgl.version}');
-        } else {
+        }
+        
+        // Minimum requirement: webgl 1 (if nothing else worked)
+        if (_gl == null) {
             _gl = window.getContextWebGL(attr);
         }
 
