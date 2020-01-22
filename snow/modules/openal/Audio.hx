@@ -38,6 +38,14 @@ class Audio implements snow.modules.interfaces.Audio {
         instances = new Map();
         buffers = new Map();
 
+        #if !snow_openal_manual_init
+        init_al();
+        #end
+
+    } //new
+
+    @:noCompletion public function init_al() {
+
         _debug('init');
         device = ALC.openDevice();
 
@@ -56,16 +64,18 @@ class Audio implements snow.modules.interfaces.Audio {
 
         active = true;
 
-    } //new
+    } //init_al
 
     function onevent(event:SystemEvent) {
-
-        if(!active) return;
 
         if(event.type == se_ready) {
             app.audio.on(ae_destroyed, on_instance_destroyed);
             app.audio.on(ae_destroyed_source, on_source_destroyed);
         } //ready
+
+        if(!active) {
+            return;
+        }
 
         if(event.type == se_tick) {
             if(app.audio.active) {
