@@ -36,7 +36,7 @@ class Assets implements snow.modules.interfaces.Assets {
 
             return app.io.data_flow(_id, AssetImage.processor);
 
-        } //image_info_from_load
+        }
 
             /** Create an image info (padded to POT) from a given Canvas or Image element. */
         public function image_info_from_element( _id:String, _elem ) : ImageData {
@@ -60,7 +60,7 @@ class Assets implements snow.modules.interfaces.Assets {
 
             return info;
 
-        } //image_info_from_element
+        }
 
         #if snow_web_use_electron_pngjs
 
@@ -95,7 +95,7 @@ class Assets implements snow.modules.interfaces.Assets {
 
             return info;
 
-        } //image_info_from_pngjs_info
+        }
 
         #end
 
@@ -185,7 +185,7 @@ class Assets implements snow.modules.interfaces.Assets {
 
             }); //promise
 
-        } //image_info_from_bytes
+        }
 
 //Internal converters
 
@@ -203,7 +203,7 @@ class Assets implements snow.modules.interfaces.Assets {
 
             return image_info_from_pixels(_id, _width, _height, _pixels);
 
-        } //image_info_from_bytes_psd
+        }
 
     #end //snow_web_psd
 
@@ -217,7 +217,7 @@ class Assets implements snow.modules.interfaces.Assets {
 
             return image_info_from_element(_id, image.getCanvas());
 
-        } //image_info_from_bytes_tga
+        }
 
     #end //snow_web_tga
 
@@ -253,7 +253,7 @@ class Assets implements snow.modules.interfaces.Assets {
             log(tips);
             throw e;
 
-        } //catch
+        }
 
             //cleanup
         tmp_canvas = null; 
@@ -291,14 +291,14 @@ class Assets implements snow.modules.interfaces.Assets {
             log(tips);
             throw e;
 
-        } //catch
+        }
 
             //cleanup
         tmp_canvas = null; tmp_context = null;
 
         return Uint8Array.fromView(image_bytes.data);
 
-    } //POT_bytes_from_element
+    }
 
 
     //Internal helpers
@@ -320,8 +320,8 @@ class Assets implements snow.modules.interfaces.Assets {
 
             return _value;
 
-        } //nearest_power_of_two
+        }
 
-} //Assets
+}
 
 #end //snow_web

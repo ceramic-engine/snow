@@ -10,7 +10,7 @@ but they aren't specific to SDL so they are used generically */
 
         return (scancode | Scancodes.MASK);
 
-    } //from_scan
+    }
 
         /** Convert a keycode to a scancode if possible.
             NOTE - this will only map a large % but not all keys,
@@ -107,7 +107,7 @@ but they aren't specific to SDL so they are used generically */
 
         return Scancodes.unknown;
 
-    } //to_scan
+    }
 
         /** Convert a keycode to string */
     public static function name( keycode : Int ) : String {
@@ -135,11 +135,11 @@ but they aren't specific to SDL so they are used generically */
 
                 return decoder.toString();
 
-            } //default
+            }
 
         } //switch(keycode)
 
-    } //name
+    }
 
     public static #if !no_inline inline #end var unknown : Int              = 0;
 
@@ -393,7 +393,7 @@ but they aren't specific to SDL so they are used generically */
     public static #if !no_inline inline #end var eject : Int                = from_scan(Scancodes.eject);
     public static #if !no_inline inline #end var sleep : Int                = from_scan(Scancodes.sleep);
 
-} //Keycodes
+}
 
 
 /** The scancode class. The values below come directly from SDL header include files,
@@ -411,7 +411,7 @@ but they aren't specific to SDL so they are used generically */
 
         return res != null ? res : "";
 
-    } //name
+    }
 
         //special value remains caps
     public static #if !no_inline inline #end var MASK:Int                      = (1<<30);
@@ -1013,5 +1013,5 @@ but they aren't specific to SDL so they are used generically */
         "Sleep",
     ]; //scancode names
 
-} //Scancodes
+}
 

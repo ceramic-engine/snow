@@ -35,14 +35,14 @@ class Assets {
         app = _app;
         module = new ModuleAssets(app);
 
-    } //new
+    }
 
         /** Shutdown and clean up etc. */
     function shutdown() {
 
         module.shutdown();
 
-    } //shutdown
+    }
 
 
 //Public API
@@ -83,4 +83,4 @@ class Assets {
     public inline function audio_from_bytes(_id:String, _bytes:Uint8Array, _format:AudioFormatType) : Promise
         return AssetAudio.load_from_bytes(this, _id, _bytes, _format);
 
-} //Assets
+}

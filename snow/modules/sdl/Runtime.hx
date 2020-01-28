@@ -95,7 +95,7 @@ class Runtime extends snow.core.native.Runtime {
 
         _debug('sdl / init ok');
 
-    } //new
+    }
 
     override function ready() {
 
@@ -103,7 +103,7 @@ class Runtime extends snow.core.native.Runtime {
 
         _debug('sdl / ready');
 
-    } //ready
+    }
 
     override function run() : Bool {
 
@@ -111,7 +111,7 @@ class Runtime extends snow.core.native.Runtime {
 
         return run_loop();
 
-    } //run
+    }
 
     override function shutdown(?_immediate:Bool=false) {
 
@@ -122,7 +122,7 @@ class Runtime extends snow.core.native.Runtime {
             _debug('sdl / shutdown immediate');
         }
 
-    } //shutdown
+    }
 
     override function window_grab(enable:Bool) : Bool {
 
@@ -130,13 +130,13 @@ class Runtime extends snow.core.native.Runtime {
 
         return res == 0;
 
-    } //window_grab
+    }
 
     public function window_swap() {
 
         SDL.GL_SwapWindow(window);
 
-    } //window_swap
+    }
 
     override function window_fullscreen(enable:Bool, ?true_fullscreen:Bool=false) : Bool {
 
@@ -148,7 +148,7 @@ class Runtime extends snow.core.native.Runtime {
 
         return SDL.setWindowFullscreen(window, flag) == 0;
 
-    } //window_fullscreen
+    }
 
     override inline public function window_width() :Int return window_w;
     override inline public function window_height() :Int return window_h;
@@ -165,7 +165,7 @@ class Runtime extends snow.core.native.Runtime {
 
         return _pixel_height / _device_height;
 
-    } //window_device_pixel_ratio
+    }
 
 
 
@@ -174,7 +174,7 @@ class Runtime extends snow.core.native.Runtime {
 
         return Timestamp.now() - timestamp_start;
 
-    } //timestamp
+    }
 
     function run_loop() {
 
@@ -200,7 +200,7 @@ class Runtime extends snow.core.native.Runtime {
 
         return _done;
 
-    } //run_loop
+    }
 
     function loop(_) {
 
@@ -229,7 +229,7 @@ class Runtime extends snow.core.native.Runtime {
                 window_swap();
             }
 
-        } //loop
+        }
             
         if (app.config.runtime.uncaught_error_handler != null) {
             try {
@@ -242,7 +242,7 @@ class Runtime extends snow.core.native.Runtime {
             _loop();
         }
 
-    } //loop
+    }
 
 
 //Mobile
@@ -272,7 +272,7 @@ class Runtime extends snow.core.native.Runtime {
 
         return 1;
 
-    } //event_watch
+    }
 
 //Window
 
@@ -320,14 +320,14 @@ class Runtime extends snow.core.native.Runtime {
                         window_h = _data2 = to_pixels(_data2);
                 case SDL_WINDOWEVENT_NONE:
 
-            } //switch
+            }
 
             if(_type != we_unknown) {
                 app.dispatch_window_event(_type, e.window.timestamp/1000.0, cast e.window.windowID, _data1, _data2);
             }
         }
 
-    } //handle_window_ev
+    }
 
     var window_w : Int = 0;
     var window_h : Int = 0;
@@ -382,7 +382,7 @@ class Runtime extends snow.core.native.Runtime {
         actual_config = update_window_config(window, actual_config);
         actual_render = update_render_config(window, actual_render);
 
-    } //create_window
+    }
 
     function create_render_context(_window:sdl.Window) : Bool {
 
@@ -423,7 +423,7 @@ class Runtime extends snow.core.native.Runtime {
 
         #end
 
-    } //post_render_context
+    }
 
 //Default flags and attributes
 
@@ -481,7 +481,7 @@ class Runtime extends snow.core.native.Runtime {
             SDL.GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, render.opengl.minor);
         }
 
-    } //apply_GL_attr
+    }
 
     function window_flags(config:WindowConfig) {
 
@@ -510,7 +510,7 @@ class Runtime extends snow.core.native.Runtime {
 
         return flags;
 
-    } //window_flags
+    }
 
     function update_window_config(_window:sdl.Window, config:WindowConfig) : WindowConfig {
 
@@ -535,7 +535,7 @@ class Runtime extends snow.core.native.Runtime {
 
         return config;
 
-    } //update_window_config
+    }
 
     function update_render_config(_window:sdl.Window, render:RenderConfig) : RenderConfig {
 
@@ -566,7 +566,7 @@ class Runtime extends snow.core.native.Runtime {
 
         return render;
 
-    } //update_render_config
+    }
 
 //Input
 
@@ -802,9 +802,9 @@ class Runtime extends snow.core.native.Runtime {
                     );
                 case _:
 
-        } //switch
+        }
 
-    } //handle_input_ev
+    }
 
     /** Helper to return a `ModState` (shift, ctrl etc) from a given `InputEvent` */
     function to_key_mod( mod_value:Int ) : ModState {
@@ -831,9 +831,9 @@ class Runtime extends snow.core.native.Runtime {
 
         return app.input.mod_state;
 
-    } //to_key_mod
+    }
 
-} //Runtime
+}
 
 typedef WindowHandle = sdl.Window;
 

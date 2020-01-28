@@ -69,7 +69,7 @@ class Runtime implements snow.core.Runtime {
 
         log('web / init ok');
 
-    } //new
+    }
 
 //Public API
 
@@ -77,19 +77,19 @@ class Runtime implements snow.core.Runtime {
 
         return js.Browser.window.devicePixelRatio == null ? 1.0 : js.Browser.window.devicePixelRatio;
 
-    } //window_device_pixel_ratio
+    }
 
     public inline function window_width() : Int {
 
         return window.width;
 
-    } //window_width
+    }
 
     public inline function window_height() : Int {
 
         return window.height;
 
-    } //window_height
+    }
 
     public function window_grab(enable:Bool) : Bool {
 
@@ -121,7 +121,7 @@ class Runtime implements snow.core.Runtime {
 
         return true;
 
-    } //window_grab
+    }
 
     var p_padding = '0';
     var p_margin = '0';
@@ -138,7 +138,7 @@ class Runtime implements snow.core.Runtime {
         window.style.width = '${js.Browser.window.innerWidth}px';
         window.style.height = '${js.Browser.window.innerHeight}px';
     
-    } //onresize_handler
+    }
 
     public function window_fullscreen(enable:Bool, ?true_fullscreen:Bool=false) : Bool {
 
@@ -212,13 +212,13 @@ class Runtime implements snow.core.Runtime {
                 } else {
                     _result = false;
                 }
-            } //true_fullscreen
+            }
 
-        } //enable
+        }
 
         return _result;
 
-    } //window_fullscreen
+    }
 
 //Public static API
 
@@ -226,7 +226,7 @@ class Runtime implements snow.core.Runtime {
 
         return (js.Browser.window.performance.now()/1000.0) - timestamp_start;
 
-    } //timestamp
+    }
 
 //Internal runtime API
 
@@ -246,7 +246,7 @@ class Runtime implements snow.core.Runtime {
         window = null;
         snow.modules.opengl.GL.gl = null;
 
-    } //shutdown
+    }
 
     function run() : Bool {
 
@@ -256,7 +256,7 @@ class Runtime implements snow.core.Runtime {
 
         return false;
 
-    } //run
+    }
 
     function ready() {
 
@@ -264,7 +264,7 @@ class Runtime implements snow.core.Runtime {
 
         create_window();
 
-    } //ready
+    }
 
 //internal
 
@@ -272,7 +272,7 @@ class Runtime implements snow.core.Runtime {
 
         app.dispatch_window_event(_type, timestamp(), web_window_id, _x, _y);
 
-    } //dispatch_window_ev
+    }
 
     function setup_events() {
 
@@ -471,7 +471,7 @@ class Runtime implements snow.core.Runtime {
 
             //:todo:web:orientation events
 
-    } //setup_events
+    }
 
     //event handlers
 
@@ -487,7 +487,7 @@ class Runtime implements snow.core.Runtime {
                 dispatch_window_ev(we_focus_gained);
             }
 
-        } //on_visibilitychange
+        }
 
         function on_keydown(_ev:js.html.KeyboardEvent) {
 
@@ -508,7 +508,7 @@ class Runtime implements snow.core.Runtime {
                 web_window_id
             );
 
-        } //on_keydown
+        }
 
         function on_keyup(_ev:js.html.KeyboardEvent) {
 
@@ -529,7 +529,7 @@ class Runtime implements snow.core.Runtime {
                 web_window_id
             );
 
-        } //on_keyup
+        }
 
             //a list of keycodes that should not generate text
             //based typing events, because... browsers.
@@ -549,7 +549,7 @@ class Runtime implements snow.core.Runtime {
 
             }
 
-        } //on_keypress
+        }
 
         function on_gamepadconnected(_ev:{ gamepad:js.html.Gamepad }) {
 
@@ -564,7 +564,7 @@ class Runtime implements snow.core.Runtime {
                 timestamp()
             );
 
-        } //on_gamepadconnected
+        }
 
         function on_gamepaddisconnected(_ev:{ gamepad:js.html.Gamepad }) {
 
@@ -579,7 +579,7 @@ class Runtime implements snow.core.Runtime {
                 timestamp()
             );
 
-        } //on_gamepaddisconnected
+        }
 
     function create_window() {
 
@@ -622,7 +622,7 @@ class Runtime implements snow.core.Runtime {
             update_window_bounds();
         }
 
-    } //create_window
+    }
 
     function post_render_context(window:WindowHandle) {
 
@@ -637,7 +637,7 @@ class Runtime implements snow.core.Runtime {
 
         #end
 
-    } //post_render_context
+    }
 
     function create_render_context(_window:WindowHandle) : Bool {
 
@@ -664,7 +664,7 @@ class Runtime implements snow.core.Runtime {
 
         return _gl != null;
 
-    } //create_render_context
+    }
 
     function apply_GL_attr(render:RenderConfig, attr:js.html.webgl.ContextAttributes) {
 
@@ -676,7 +676,7 @@ class Runtime implements snow.core.Runtime {
 
         return attr;
 
-    } //apply_GL_attr
+    }
 
     function create_render_context_failed() {
 
@@ -714,7 +714,7 @@ class Runtime implements snow.core.Runtime {
 
         throw Error.error('runtime / web / failed to create render context, unable to recover');
 
-    } //failed_render_context
+    }
 
 //main loop
 
@@ -722,7 +722,7 @@ class Runtime implements snow.core.Runtime {
 
         js.Browser.window.requestAnimationFrame(loop);
 
-    } //request_frame
+    }
 
     function loop(?_t:Float = 0.016) : Bool {
 
@@ -740,7 +740,7 @@ class Runtime implements snow.core.Runtime {
 
         return true;
 
-    } //loop
+    }
 
 //internal main loop before ready is fired
 
@@ -758,7 +758,7 @@ class Runtime implements snow.core.Runtime {
 
         return true;
 
-    } //loop_pre_ready
+    }
 
 //input
 
@@ -789,7 +789,7 @@ class Runtime implements snow.core.Runtime {
         
         return app.input.mod_state;
 
-    } //mod_state_from_event
+    }
 
         /** This takes a *DOM* keycode and returns a snow Keycodes value */
     inline function convert_keycode(dom_keycode:Int) : Int {
@@ -803,7 +803,7 @@ class Runtime implements snow.core.Runtime {
             //this will pass back the same value if unmapped
         return DOMKeys.dom_key_to_keycode(dom_keycode);
 
-    } //convert_keycode
+    }
 
 //window helpers
 
@@ -840,7 +840,7 @@ class Runtime implements snow.core.Runtime {
             dispatch_window_ev(we_size_changed, window.width, window.height);
         }
 
-    } //update_window_bounds
+    }
 
 //gamepads
     
@@ -854,7 +854,7 @@ class Runtime implements snow.core.Runtime {
             gamepad_btns_cache[_gamepad.index].push(0);
         }
 
-    } //gamepads_init_cache
+    }
 
     inline function gamepads_init() {
 
@@ -872,7 +872,7 @@ class Runtime implements snow.core.Runtime {
             log("Gamepads are not supported in this browser :(");
         }
 
-    } //gamepads_init
+    }
 
     inline function gamepads_poll() {
 
@@ -930,14 +930,14 @@ class Runtime implements snow.core.Runtime {
 
                     _prev_btn[_btn_idx] = _btn.value;
 
-                } //changed
+                }
 
             } //each button
 
             _idx++;
         } //each gamepad
 
-    } //gamepads_poll
+    }
 
     inline function gamepads_get_list() : Array<js.html.Gamepad> {
 
@@ -951,7 +951,7 @@ class Runtime implements snow.core.Runtime {
 
         return null;
 
-    } //get_gamepad_list
+    }
 
 //helpers
 
@@ -977,9 +977,9 @@ class Runtime implements snow.core.Runtime {
 
         return OS.os_unknown;
 
-    } //guess_os
+    }
 
-} //Runtime
+}
 
 
 typedef WindowHandle = js.html.CanvasElement;
@@ -1009,7 +1009,7 @@ typedef RuntimeConfig = {
 
 
 
-} //RuntimeConfig
+}
 
 
 
@@ -1120,7 +1120,7 @@ private class DOMKeys {
 
         return _keycode;
 
-    } //dom_key_to_keycode
+    }
 
     // the keycodes below are dom specific keycodes mapped to snow input names
     // these values *come from the browser* dom spec codes only, some info here
@@ -1221,6 +1221,6 @@ private class DOMKeys {
     static inline var dom_quote          = 222;
     static inline var dom_meta           = 224;
 
-} //DOMKeys
+}
 
 #end

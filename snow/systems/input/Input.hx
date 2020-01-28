@@ -76,12 +76,12 @@ class Input {
 
             touches_down = new IntBoolMap();
 
-    } //new
+    }
 
         /** Destroy and clean up etc. */
     function shutdown() {
 
-    } //shutdown
+    }
 
 //Public facing API
 
@@ -91,49 +91,49 @@ class Input {
             /** returns true if the `Key` value was pressed in the latest frame */
         public function keypressed( _code:Int ) : Bool {
             return key_code_pressed.exists(_code);
-        } //keypressed
+        }
 
             /** returns true if the `Key` value was released in the latest frame */
         public function keyreleased( _code:Int ) : Bool {
             return key_code_released.exists(_code);
-        } //keyreleased
+        }
 
             /** returns true if the `Key` value is down at the time of calling this */
         public function keydown( _code:Int ) : Bool {
            return key_code_down.exists(_code);
-        } //keydown
+        }
 
             /** returns true if the `Scan` value was pressed in the latest frame */
         public function scanpressed( _code:Int ) : Bool {
             return scan_code_pressed.exists(_code);
-        } //scanpressed
+        }
 
             /** returns true if the `Scan` value was released in the latest frame */
         public function scanreleased( _code:Int ) : Bool {
             return scan_code_released.exists(_code);
-        } //scanreleased
+        }
 
             /** returns true if the `Scan` value is down at the time of calling this */
         public function scandown( _code:Int ) : Bool {
            return scan_code_down.exists(_code);
-        } //keydown
+        }
 
     //Mouse immediate style access
       //
             /** returns true if the mouse button was pressed in the latest frame */
         public function mousepressed( _button:Int ) : Bool {
             return mouse_button_pressed.exists(_button);
-        } //keypressed
+        }
 
             /** returns true if the mouse button was released in the latest frame */
         public function mousereleased( _button:Int ) : Bool {
             return mouse_button_released.exists(_button);
-        } //mousereleased
+        }
 
             /** returns true if the mouse button value is down at the time of calling this */
         public function mousedown( _button:Int ) : Bool {
            return mouse_button_down.exists(_button);
-        } //mousedown
+        }
 
     //Gamepad immediate style access
      //
@@ -143,7 +143,7 @@ class Input {
             var _gamepad_state = gamepad_button_pressed.get(_gamepad);
             return _gamepad_state != null ? _gamepad_state.exists(_button) : false;
 
-        } //keypressed
+        }
 
             /** returns true if the gamepad button was released in the latest frame */
         public function gamepadreleased( _gamepad:Int, _button:Int ) : Bool {
@@ -151,7 +151,7 @@ class Input {
             var _gamepad_state = gamepad_button_released.get(_gamepad);
             return _gamepad_state != null ? _gamepad_state.exists(_button) : false;
 
-        } //gamepadreleased
+        }
 
             /** returns true if the gamepad button value is down at the time of calling this */
         public function gamepaddown( _gamepad:Int, _button:Int ) : Bool {
@@ -159,7 +159,7 @@ class Input {
             var _gamepad_state = gamepad_button_down.get(_gamepad);
             return _gamepad_state != null ? _gamepad_state.exists(_button) : false;
 
-        } //gamepaddown
+        }
 
             /** returns true if the gamepad button value is down at the time of calling this */
         public function gamepadaxis( _gamepad:Int, _axis:Int ) : Float {
@@ -173,7 +173,7 @@ class Input {
 
             return 0;
 
-        } //gamepaddown
+        }
 
         /** manually dispatch a key down event through the system, delivered to the app handlers, internal and external */
 
@@ -200,7 +200,7 @@ class Input {
             //call the app directly
         app.host.onkeydown(keycode, scancode, repeat, mod, timestamp, window_id);
 
-    } //dispatch_key_down_event
+    }
 
         /** manually dispatch a key up event through the system, delivered to the app handlers, internal and external */
     public function dispatch_key_up_event( keycode:Int, scancode:Int, repeat:Bool, mod:ModState, timestamp:Float, window_id:Int ) {
@@ -225,7 +225,7 @@ class Input {
             //call the app directly
         app.host.onkeyup(keycode, scancode, repeat, mod, timestamp, window_id);
 
-    } //dispatch_key_up_event
+    }
 
         /** manually dispatch a text event through the system, delivered to the app handlers, internal and external */
     public function dispatch_text_event( text:String, start:Int, length:Int, type:TextEventType, timestamp:Float, window_id:Int ) {
@@ -236,7 +236,7 @@ class Input {
 
         app.host.ontextinput( text, start, length, type, timestamp, window_id );
 
-    } //dispatch_text_event
+    }
 
 
         /** manually dispatch a mouse move event through the system, delivered to the app handlers, internal and external */
@@ -248,7 +248,7 @@ class Input {
 
         app.host.onmousemove( x, y, xrel, yrel, timestamp, window_id );
 
-    } //dispatch_mouse_move_event
+    }
 
         /** manually dispatch a mouse button down event through the system, delivered to the app handlers, internal and external */
     public function dispatch_mouse_down_event( x:Int, y:Int, button:Int, timestamp:Float, window_id:Int ) {
@@ -264,7 +264,7 @@ class Input {
 
         app.host.onmousedown( x, y, button, timestamp, window_id );
 
-    } //dispatch_mouse_down_event
+    }
 
         /** manually dispatch a mouse button up event through the system, delivered to the app handlers, internal and external */
     public function dispatch_mouse_up_event( x:Int, y:Int, button:Int, timestamp:Float, window_id:Int ) {
@@ -281,7 +281,7 @@ class Input {
 
         app.host.onmouseup( x, y, button, timestamp, window_id );
 
-    } //dispatch_mouse_up_event
+    }
 
         /** manually dispatch a mouse wheel event through the system, delivered to the app handlers, internal and external */
     public function dispatch_mouse_wheel_event( x:Float, y:Float, timestamp:Float, window_id:Int ) {
@@ -292,7 +292,7 @@ class Input {
 
         app.host.onmousewheel( x, y, timestamp, window_id );
 
-    } //dispatch_mouse_wheel_event
+    }
 
         /** manually dispatch a touch down through the system, delivered to the app handlers, internal and external */
     public function dispatch_touch_down_event( x:Float, y:Float, dx:Float, dy:Float, touch_id:Int, timestamp:Float ) {
@@ -308,7 +308,7 @@ class Input {
 
         app.host.ontouchdown( x, y, dx, dy, touch_id, timestamp );
 
-    } //dispatch_touch_down_event
+    }
 
         /** manually dispatch a touch up through the system, delivered to the app handlers, internal and external */
     public function dispatch_touch_up_event( x:Float, y:Float, dx:Float, dy:Float, touch_id:Int, timestamp:Float ) {
@@ -323,7 +323,7 @@ class Input {
             touch_count--;
         }
 
-    } //dispatch_touch_up_event
+    }
 
         /** manually dispatch a touch move through the system, delivered to the app handlers, internal and external */
     public function dispatch_touch_move_event( x:Float, y:Float, dx:Float, dy:Float, touch_id:Int, timestamp:Float ) {
@@ -334,7 +334,7 @@ class Input {
 
         app.host.ontouchmove( x, y, dx, dy, touch_id, timestamp );
 
-    } //dispatch_touch_move_event
+    }
 
         /** manually dispatch a gamepad axis event through the system, delivered to the app handlers, internal and external */
     public function dispatch_gamepad_axis_event( gamepad:Int, axis:Int, value:Float, timestamp:Float ) {
@@ -350,7 +350,7 @@ class Input {
 
         app.host.ongamepadaxis( gamepad, axis, value, timestamp );
 
-    } //dispatch_gamepad_axis_event
+    }
 
         /** manually dispatch a gamepad button down event through the system, delivered to the app handlers, internal and external */
     public function dispatch_gamepad_button_down_event( gamepad:Int, button:Int, value:Float, timestamp:Float ) {
@@ -369,7 +369,7 @@ class Input {
 
         app.host.ongamepaddown( gamepad, button, value, timestamp );
 
-    } //dispatch_gamepad_button_down_event
+    }
 
         /** manually dispatch a gamepad button up event through the system, delivered to the app handlers, internal and external */
     public function dispatch_gamepad_button_up_event( gamepad:Int, button:Int, value:Float, timestamp:Float ) {
@@ -388,7 +388,7 @@ class Input {
 
         app.host.ongamepadup(gamepad, button, value, timestamp);
 
-    } //dispatch_gamepad_button_up_event
+    }
 
         /** manually dispatch a gamepad device event through the system, delivered to the app handlers, internal and external */
     public function dispatch_gamepad_device_event( gamepad:Int, id:String, type:GamepadDeviceEventType, timestamp:Float ) {
@@ -399,7 +399,7 @@ class Input {
 
         app.host.ongamepaddevice(gamepad, id, type, timestamp);
 
-    } //dispatch_gamepad_device_event
+    }
 
 //Interal API
  //
@@ -412,7 +412,7 @@ class Input {
             _update_mousestate();
         }
 
-    } //onevent
+    }
 
 
 //internal
@@ -448,7 +448,7 @@ class Input {
 
         } //each mouse_button_released
 
-    } //_update_mousestate
+    }
 
         /** update gamepad pressed/released/down/axis states */
     function _update_gamepadstate() {
@@ -491,7 +491,7 @@ class Input {
             } //each _gamepad_released
         } //each gamepad_button_released
 
-    } //_update_gamepadstate
+    }
 
         /** update key pressed/released/down states */
     function _update_keystate() {
@@ -566,7 +566,7 @@ class Input {
 
         } //each scan_code_released
 
-    } //_update_keystate
+    }
 
 
 
@@ -597,6 +597,6 @@ class Input {
     @:noCompletion public var touches_down : IntBoolMap;
 
 
-} //Input
+}
 
 

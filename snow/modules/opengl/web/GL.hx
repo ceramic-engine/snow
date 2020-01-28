@@ -39,7 +39,7 @@ class GL {
 
         return "/ " + ver + " / " + slver + " / " + ren + " / " + ven + " /";
     
-    } //versionString
+    }
 
 //spec
 

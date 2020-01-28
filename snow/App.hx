@@ -131,7 +131,7 @@ class App {
         frame_start_prev = frame_start - fixed_frame_time;
         frame_delta = sim_delta = fixed_frame_time;
 
-    } //internal_init
+    }
 
     function internal_tick() {
 
@@ -162,7 +162,7 @@ class App {
             #end
         #end
 
-    } //internal_tick
+    }
 
     //inline  //:todo: better handling of update_rate for inlining
     function internal_tick_default() : Void {
@@ -194,7 +194,7 @@ class App {
         sim_time += _used_delta;
         update(_used_delta);
 
-    } //internal_tick_default
+    }
 
     inline function internal_tick_fixed_timestep() : Void {
 
@@ -220,7 +220,7 @@ class App {
 
         fixed_alpha = fixed_overflow / fixed_frame_time;
 
-    } //internal_tick_fixed_timestep
+    }
 
 //Internal
 
@@ -232,8 +232,8 @@ class App {
 
             new snow.Snow(new AppHost());
 
-        } //main
+        }
 
     #end //!snow_no_main
 
-} //App
+}

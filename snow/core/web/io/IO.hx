@@ -28,13 +28,13 @@ class IO implements snow.modules.interfaces.IO {
 
         return './';
 
-    } //app_path
+    }
 
     public function app_path_prefs() : String {
 
         return './';
 
-    } //app_path_prefs
+    }
 
     public function url_open( _url:String ) {
 
@@ -42,7 +42,7 @@ class IO implements snow.modules.interfaces.IO {
             js.Browser.window.open(_url, '_blank');
         }
 
-    } //url_open
+    }
 
         /** Load bytes from the file path/url given.
             On web a request is sent for the data */
@@ -121,7 +121,7 @@ class IO implements snow.modules.interfaces.IO {
                         reject(Error.error('request status was ${request.status} / ${request.statusText}'));
                     }
 
-                } //onload
+                }
 
                 request.send();
 
@@ -131,13 +131,13 @@ class IO implements snow.modules.interfaces.IO {
 
         });
 
-    } //data_load
+    }
 
     public function data_save( _path:String, _data:Uint8Array, ?_options:IODataOptions ) : Bool {
 
         return false;
 
-    } //data_save
+    }
 
 
         /** Returns the path where string_save operates.
@@ -151,7 +151,7 @@ class IO implements snow.modules.interfaces.IO {
 
         return haxe.io.Path.normalize(_path);
 
-    } //string_save_path
+    }
 
 //Internal API
 
@@ -177,7 +177,7 @@ class IO implements snow.modules.interfaces.IO {
 
         return false;
 
-    } //string_slot_destroy
+    }
 
         //flush the string map to disk
     inline function string_slot_save( ?_slot:Int = 0, _contents:String ) : Bool {
@@ -194,7 +194,7 @@ class IO implements snow.modules.interfaces.IO {
 
         return true;
 
-    } //string_slot_save
+    }
 
         //get the string contents of this slot,
         //or null if not found/doesn't exist
@@ -210,7 +210,7 @@ class IO implements snow.modules.interfaces.IO {
 
         return storage.getItem(_id);
 
-    } //string_slot_load
+    }
 
     inline function string_slot_encode( _string:String ) : String {
         return js.Browser.window.btoa(_string);
@@ -221,6 +221,6 @@ class IO implements snow.modules.interfaces.IO {
     }
 
 
-} //IO
+}
 
 #end //snow_web

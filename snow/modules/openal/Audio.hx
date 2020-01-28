@@ -42,7 +42,7 @@ class Audio implements snow.modules.interfaces.Audio {
         init_al();
         #end
 
-    } //new
+    }
 
     @:noCompletion public function init_al() {
 
@@ -64,14 +64,14 @@ class Audio implements snow.modules.interfaces.Audio {
 
         active = true;
 
-    } //init_al
+    }
 
     function onevent(event:SystemEvent) {
 
         if(event.type == se_ready) {
             app.audio.on(ae_destroyed, on_instance_destroyed);
             app.audio.on(ae_destroyed_source, on_source_destroyed);
-        } //ready
+        }
 
         if(!active) {
             return;
@@ -100,7 +100,7 @@ class Audio implements snow.modules.interfaces.Audio {
             } //audio active
         } //tick event
 
-    } //onevent
+    }
 
     function on_source_destroyed(_source:AudioSource) {
 
@@ -130,7 +130,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         instances.remove(_handle);
 
-    } //_handle
+    }
 
     function shutdown() {
 
@@ -161,7 +161,7 @@ class Audio implements snow.modules.interfaces.Audio {
         app.audio.off(ae_destroyed, on_instance_destroyed);
         app.audio.off(ae_destroyed_source, on_source_destroyed);
 
-    } //shutdown
+    }
 
     public function suspend() {
 
@@ -178,7 +178,7 @@ class Audio implements snow.modules.interfaces.Audio {
         ALC.suspendContext(context);
         ALC.makeContextCurrent(cast null);
 
-    } //suspend
+    }
 
     public function resume() {
 
@@ -197,13 +197,13 @@ class Audio implements snow.modules.interfaces.Audio {
         _debug('resume AL ${ALError.desc(AL.getError())}');
         _debug('resume ALC ${ALCError.desc(ALC.getError(device))}');
 
-    } //resume
+    }
 
     inline function snd_of(_handle:AudioHandle) : ALSound {
 
         return instances.get(_handle);
 
-    } //snd_of
+    }
 
         /** Play an instance of the given audio source, returning a disposable handle */
     public function play(_source:AudioSource, _volume:Float, _paused:Bool) : AudioHandle {
@@ -237,7 +237,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         return _handle;
 
-    } //play
+    }
 
         /** Play and loop a sound instance indefinitely. Use stop to end it.
             Returns a disposable handle */
@@ -257,7 +257,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         return _handle;
 
-    } //loop
+    }
 
     public function pause(_handle:AudioHandle) : Void {
 
@@ -270,7 +270,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         err('pause');
 
-    } //pause
+    }
 
     public function unpause(_handle:AudioHandle) : Void {
 
@@ -283,7 +283,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         err('unpause');
 
-    } //unpause
+    }
 
     public function stop(_handle:AudioHandle) : Void {
 
@@ -296,7 +296,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         err('stop');
 
-    } //stop
+    }
 
         /** Set the volume of a sound instance */
     public function volume(_handle:AudioHandle, _volume:Float) : Void {
@@ -308,7 +308,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         AL.sourcef(_snd.alsource, AL.GAIN, _volume);
 
-    } //volume
+    }
 
     static inline var half_pi : Float = 1.5707;
 
@@ -324,7 +324,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         AL.source3f(_snd.alsource, AL.POSITION, Math.cos((_pan - 1) * (half_pi)), 0, Math.sin((_pan + 1) * (half_pi)));
 
-    } //pan
+    }
 
         /** Set the pitch of a sound instance */
     public function pitch(_handle:AudioHandle, _pitch:Float) : Void {
@@ -336,7 +336,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         AL.sourcef(_snd.alsource, AL.PITCH, _pitch);
 
-    } //pitch
+    }
 
         /** Set the position of a sound instance */
     public function position(_handle:AudioHandle, _time:Float) : Void {
@@ -348,7 +348,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         _snd.position(_time);
 
-    } //position
+    }
 
         /** Get the volume of a sound instance */
     public function volume_of(_handle:AudioHandle) : Float {
@@ -358,7 +358,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         return AL.getSourcef(_snd.alsource, AL.GAIN);
 
-    } //volume_of
+    }
 
         /** Get the pan of a sound instance */
     public function pan_of(_handle:AudioHandle) : Float {
@@ -368,7 +368,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         return _snd.pan;
 
-    } //pan_of
+    }
 
         /** Get the pitch of a sound instance */
     public function pitch_of(_handle:AudioHandle) : Float {
@@ -378,7 +378,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         return AL.getSourcef(_snd.alsource, AL.PITCH);
 
-    } //pitch_of
+    }
 
         /** Get the position of a sound instance */
     public function position_of(_handle:AudioHandle) : Float {
@@ -388,7 +388,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         return _snd.position_of();
 
-    } //position_of
+    }
 
         /** Get the playback state of a handle */
     public function state_of(_handle:AudioHandle) : AudioState {
@@ -403,7 +403,7 @@ class Audio implements snow.modules.interfaces.Audio {
             case _:                         as_invalid;
         }
 
-    } //state_of
+    }
 
         /** Get the looping state of a handle */
     public function loop_of(_handle:AudioHandle) : Bool {
@@ -413,7 +413,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         return _snd.looping;
 
-    } //loop_of
+    }
 
         /** Get the audio instance of a handle, use with caution. */
     public function instance_of(_handle:AudioHandle) : AudioInstance {
@@ -423,7 +423,7 @@ class Audio implements snow.modules.interfaces.Audio {
 
         return _snd.instance;
 
-    } //instance_of
+    }
 
 //data API
         
@@ -432,14 +432,14 @@ class Audio implements snow.modules.interfaces.Audio {
         
         return NativeAudioData.data_from_load(app, _path, _is_stream, _format);
 
-    } //data_from_load
+    }
         
         /** Promises an AudioData instance from the given bytes */            
     public function data_from_bytes(_id:String, _bytes:Uint8Array, ?_format:AudioFormatType) : Promise {
 
         return NativeAudioData.data_from_bytes(app, _id, _bytes, _format);
 
-    } //data_from_bytes
+    }
 
 
 //internal
@@ -462,5 +462,5 @@ class Audio implements snow.modules.interfaces.Audio {
         }
     }
 
-} //Audio
+}
 

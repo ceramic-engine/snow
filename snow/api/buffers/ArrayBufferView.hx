@@ -27,7 +27,7 @@ package snow.api.buffers;
             type = in_type;
             bytesPerElement = bytesForType(type);
 
-        } //new
+        }
 
     //Constructor helpers
 
@@ -49,7 +49,7 @@ package snow.api.buffers;
 
             return _view;
 
-        } //fromElements
+        }
 
         @:allow(snow.api.buffers)
         #if !snow_no_inline_buffers inline #end
@@ -76,7 +76,7 @@ package snow.api.buffers;
 
             return _view;
 
-        } //fromView
+        }
 
         @:allow(snow.api.buffers)
         #if !snow_no_inline_buffers inline #end
@@ -99,7 +99,7 @@ package snow.api.buffers;
 
             return _view;
 
-        } //fromBuffer
+        }
 
 
         @:allow(snow.api.buffers)
@@ -119,7 +119,7 @@ package snow.api.buffers;
 
             return _view;
 
-        } //fromArray
+        }
 
 
     //Public shared APIs
@@ -258,7 +258,7 @@ package snow.api.buffers;
 
             return name + ' [byteLength:${this.byteLength}, length:${this.length}]';
 
-        } //toString
+        }
 
         #if !snow_no_inline_buffers inline #end
         function toByteLength( elemCount:Int ) : Int {
@@ -347,6 +347,6 @@ package snow.api.buffers;
 
         }
 
-    } //ArrayBufferView
+    }
 
 #end //!js
