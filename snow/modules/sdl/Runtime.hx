@@ -355,8 +355,19 @@ class Runtime extends snow.core.native.Runtime {
             _debug('sdl / init video');
         }
 
+        #if windows
+            // Get DPI info (needed on windows to adapt window size)
+        var dpiInfo:Array<cpp.Float32> = [];
+        SDL.getDisplayDPI(0, dpiInfo);
+        var window_width:Int = Std.int(config.width * dpiInfo[1] / dpiInfo[3]);
+        var window_height:Int = Std.int(config.height * dpiInfo[2] / dpiInfo[3]);
+        #else
+        var window_width:Int = config.width;
+        var window_height:Int = config.height;
+        #end
+
             //create window
-        window = SDL.createWindow((cast config.title:String), config.x, config.y, config.width, config.height, window_flags(config));
+        window = SDL.createWindow((cast config.title:String), config.x, config.y, window_width, window_height, window_flags(config));
 
         if(window == null) {
             throw Error.error('runtime / sdl / failed to create platform window, unable to recover / `${SDL.getError()}`');
