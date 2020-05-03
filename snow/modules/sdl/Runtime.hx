@@ -31,6 +31,8 @@ class Runtime extends snow.core.native.Runtime {
         /** internal: map of joystick index to joystick instance */
     var joysticks : Map<Int, sdl.Joystick>;
 
+    public var handle_sdl_event : sdl.Event->Void = null;
+
     function new(_app:snow.Snow) {
 
         super(_app);
@@ -214,6 +216,10 @@ class Runtime extends snow.core.native.Runtime {
 
                 handle_input_ev(e);
                 handle_window_ev(e);
+
+                if (handle_sdl_event != null) {
+                    handle_sdl_event(e);
+                }
 
                 if(e.type == SDL_QUIT) {
                     app.dispatch_event(se_quit);
