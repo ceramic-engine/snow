@@ -137,7 +137,19 @@ class Audio implements snow.modules.interfaces.Audio {
         if(!active) return;
 
         for(_snd in instances) {
-            _snd.instance.destroy();
+            #if ios
+            try {
+                // Surrounding this call with try/catch
+                // because on iOS, when leaving app,
+                // it seems to make the app crash
+            #end
+                _snd.instance.destroy();
+            #if ios
+            }
+            catch (e:Dynamic) {
+                trace('Failed to destroy sound instance: ' + e);
+            }
+            #end
         }
 
         for(_buffer in buffers) {
