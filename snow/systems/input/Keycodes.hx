@@ -130,10 +130,7 @@ but they aren't specific to SDL so they are used generically */
 
             default: {
 
-                var decoder = new haxe.Utf8();
-                    decoder.addChar(keycode);
-
-                return decoder.toString();
+                return String.fromCharCode(keycode);
 
             }
 

@@ -3,26 +3,26 @@ package snow.api.buffers;
 #if js
 
     @:forward
-    abstract Uint8ClampedArray(js.html.Uint8ClampedArray)
-        from js.html.Uint8ClampedArray
-        to js.html.Uint8ClampedArray {
+    abstract Uint8ClampedArray(js.lib.Uint8ClampedArray)
+        from js.lib.Uint8ClampedArray
+        to js.lib.Uint8ClampedArray {
 
         public inline static var BYTES_PER_ELEMENT : Int = 1;
 
         inline public function new(_elements:Int) {
-            this = new js.html.Uint8ClampedArray(_elements);
+            this = new js.lib.Uint8ClampedArray(_elements);
         }
         
         inline static public function fromArray<T>(_array:Array<T>) : Uint8ClampedArray {
-            return new js.html.Uint8ClampedArray(untyped _array);
+            return new js.lib.Uint8ClampedArray(untyped _array);
         }
         
         inline static public function fromView(_view:ArrayBufferView) : Uint8ClampedArray {
-            return new js.html.Uint8ClampedArray(untyped _view);
+            return new js.lib.Uint8ClampedArray(untyped _view);
         }
         
         inline static public function fromBuffer(_buffer:ArrayBuffer, _byteOffset:Int, _byteLength:Int) : Uint8ClampedArray {
-            return new js.html.Uint8ClampedArray(_buffer, _byteOffset, _byteLength);
+            return new js.lib.Uint8ClampedArray(_buffer, _byteOffset, _byteLength);
         }
 
         @:arrayAccess @:extern inline function __set(idx:Int, val:UInt) : Void this[idx] = _clamp(val);
@@ -31,16 +31,16 @@ package snow.api.buffers;
 
             //non spec haxe conversions
         inline public static function fromBytes( bytes:haxe.io.Bytes, ?byteOffset:Int=0, ?len:Int ) : Uint8ClampedArray {
-            if(byteOffset == null) return new js.html.Uint8ClampedArray(cast bytes.getData());
-            if(len == null) return new js.html.Uint8ClampedArray(cast bytes.getData(), byteOffset);
-            return new js.html.Uint8ClampedArray(cast bytes.getData(), byteOffset, len);
+            if(byteOffset == null) return new js.lib.Uint8ClampedArray(cast bytes.getData());
+            if(len == null) return new js.lib.Uint8ClampedArray(cast bytes.getData(), byteOffset);
+            return new js.lib.Uint8ClampedArray(cast bytes.getData(), byteOffset, len);
         }
 
         inline public function toBytes() : haxe.io.Bytes {
             #if (haxe_ver < 3.2)
-                return @:privateAccess new haxe.io.Bytes( this.byteLength, cast new js.html.Uint8Array(this.buffer) );
+                return @:privateAccess new haxe.io.Bytes( this.byteLength, cast new js.lib.Uint8Array(this.buffer) );
             #else
-                return @:privateAccess new haxe.io.Bytes( cast new js.html.Uint8Array(this.buffer) );
+                return @:privateAccess new haxe.io.Bytes( cast new js.lib.Uint8Array(this.buffer) );
             #end
         }
 

@@ -2,7 +2,7 @@ package snow.api.buffers;
 
 #if js
 
-    typedef ArrayBuffer = js.html.ArrayBuffer;
+    typedef ArrayBuffer = js.lib.ArrayBuffer;
 
 #else
 

@@ -3,26 +3,26 @@ package snow.api.buffers;
 #if js
 
     @:forward
-    abstract Uint8Array(js.html.Uint8Array)
-        from js.html.Uint8Array
-        to js.html.Uint8Array {
+    abstract Uint8Array(js.lib.Uint8Array)
+        from js.lib.Uint8Array
+        to js.lib.Uint8Array {
 
         public inline static var BYTES_PER_ELEMENT : Int = 1;
 
         inline public function new(_elements:Int) {
-            this = new js.html.Uint8Array(_elements);
+            this = new js.lib.Uint8Array(_elements);
         }
         
         inline static public function fromArray<T>(_array:Array<T>) : Uint8Array {
-            return new js.html.Uint8Array(untyped _array);
+            return new js.lib.Uint8Array(untyped _array);
         }
         
         inline static public function fromView(_view:ArrayBufferView) : Uint8Array {
-            return new js.html.Uint8Array(untyped _view);
+            return new js.lib.Uint8Array(untyped _view);
         }
         
         inline static public function fromBuffer(_buffer:ArrayBuffer, _byteOffset:Int, _byteLength:Int) : Uint8Array {
-            return new js.html.Uint8Array(_buffer, _byteOffset, _byteLength);
+            return new js.lib.Uint8Array(_buffer, _byteOffset, _byteLength);
         }
 
         @:arrayAccess @:extern inline function __set(idx:Int, val:UInt) : Void this[idx] = val;
@@ -31,16 +31,16 @@ package snow.api.buffers;
 
             //non spec haxe conversions
         inline public static function fromBytes( bytes:haxe.io.Bytes, ?byteOffset:Int, ?len:Int ) : Uint8Array {
-            if(byteOffset == null) return new js.html.Uint8Array(cast bytes.getData());
-            if(len == null) return new js.html.Uint8Array(cast bytes.getData(), byteOffset);
-            return new js.html.Uint8Array(cast bytes.getData(), byteOffset, len);
+            if(byteOffset == null) return new js.lib.Uint8Array(cast bytes.getData());
+            if(len == null) return new js.lib.Uint8Array(cast bytes.getData(), byteOffset);
+            return new js.lib.Uint8Array(cast bytes.getData(), byteOffset, len);
         }
 
         inline public function toBytes() : haxe.io.Bytes {
             #if (haxe_ver < 3.2)
-                return @:privateAccess new haxe.io.Bytes( this.byteLength, cast new js.html.Uint8Array(this.buffer) );
+                return @:privateAccess new haxe.io.Bytes( this.byteLength, cast new js.lib.Uint8Array(this.buffer) );
             #else
-                return @:privateAccess new haxe.io.Bytes( cast new js.html.Uint8Array(this.buffer) );
+                return @:privateAccess new haxe.io.Bytes( cast new js.lib.Uint8Array(this.buffer) );
             #end
         }
 

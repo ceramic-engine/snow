@@ -54,7 +54,7 @@ class Audio implements snow.modules.interfaces.Audio {
             context = new js.html.audio.AudioContext();
         } catch(err:Dynamic) {
             try {
-                context = untyped __js__('new window.webkitAudioContext()');
+                context = untyped js.Syntax.code('new window.webkitAudioContext()');
             } catch(err:Dynamic) {
                 log('WebAudio: no AudioContext could be created! No audio loading or playback will be available.');
                 return;

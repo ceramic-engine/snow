@@ -47,7 +47,7 @@ extern class Howl {
 	function unload():Void;
 
 	// Web Audio only
-	function decodeAudioData(arraybuffer:js.html.ArrayBuffer, obj:Howl, url:String):String;
+	function decodeAudioData(arraybuffer:js.lib.ArrayBuffer, obj:Howl, url:String):String;
 
 	function loadBuffer(obj:Howl, url:String):String;
 
