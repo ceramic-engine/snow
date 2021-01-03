@@ -16,6 +16,8 @@ import snow.systems.audio.Audio;
 
 class Snow {
 
+        public static var app:Snow = null;
+
     //public
 
             /** The host application */
@@ -89,6 +91,8 @@ class Snow {
                 if(_filter != null) log('log / filter : $_filter');
                 if(_exclude != null) log('log / exclude : $_exclude');
             }
+
+            Snow.app = this;
 
             host = _host;
             host.app = this;
